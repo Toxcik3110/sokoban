@@ -36519,25 +36519,25 @@ var MainApp = function (_React$Component) {
 			console.log(code);
 			switch (code) {
 				case 'ArrowUp':
-					player[1]--;
+					if (this.state.mapa[player[1] - 1][player[0]] !== -1) player[1]--;
 					this.setState({
 						hero: [player[0], player[1]]
 					});
 					break;
 				case 'ArrowDown':
-					player[1]++;
+					if (this.state.mapa[player[1] + 1][player[0]] !== -1) player[1]++;
 					this.setState({
 						hero: [player[0], player[1]]
 					});
 					break;
 				case 'ArrowLeft':
-					player[0]--;
+					if (this.state.mapa[player[1]][player[0] - 1] !== -1) player[0]--;
 					this.setState({
 						hero: [player[0], player[1]]
 					});
 					break;
 				case 'ArrowRight':
-					player[0]++;
+					if (this.state.mapa[player[1]][player[0] + 1] !== -1) player[0]++;
 					this.setState({
 						hero: [player[0], player[1]]
 					});
