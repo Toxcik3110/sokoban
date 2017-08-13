@@ -36501,23 +36501,68 @@ var MainApp = function (_React$Component) {
 			}
 			arr = [].concat(_toConsumableArray(arr), [b]);
 		}
-		arr[1][1] = 1;
+		// arr[1][1] = 1;
 		_this.state = {
 			mapa: [].concat(_toConsumableArray(arr)),
 			hero: [1, 1]
 		};
+		_this.handleKeyDown = _this.handleKeyDown.bind(_this);
+		$(document.body).on('keydown', _this.handleKeyDown);
 		return _this;
 	}
 
 	_createClass(MainApp, [{
+		key: 'handleKeyDown',
+		value: function handleKeyDown(e) {
+			var player = this.state.hero;
+			var code = e.originalEvent.key;
+			console.log(code);
+			switch (code) {
+				case 'ArrowUp':
+					player[1]--;
+					this.setState({
+						hero: [player[0], player[1]]
+					});
+					break;
+				case 'ArrowDown':
+					player[1]++;
+					this.setState({
+						hero: [player[0], player[1]]
+					});
+					break;
+				case 'ArrowLeft':
+					player[0]--;
+					this.setState({
+						hero: [player[0], player[1]]
+					});
+					break;
+				case 'ArrowRight':
+					player[0]++;
+					this.setState({
+						hero: [player[0], player[1]]
+					});
+					break;
+			}
+		}
+	}, {
 		key: 'render',
 		value: function render() {
+			var player = this.state.hero;
 			var renderMapa = function renderMapa(arr) {
+				var y = -1;
 				console.log('arr', arr);
 				var renderRow = function renderRow(arr) {
 					return arr.map(function (e) {
+						y++;
+						var x = -1;
 						var renderElem = function renderElem(e) {
 							return e.map(function (elem) {
+								x++;
+								console.log('x:' + x + '; y:' + y);
+								if (player[0] === x && player[1] === y) {
+									elem = 1;
+									console.log('match!');
+								}
 								var color = elem === 0 ? '#292' : elem === 1 ? '#992' : '#4ff';
 								return _react2.default.createElement(
 									'div',
@@ -36541,9 +36586,7 @@ var MainApp = function (_React$Component) {
 			};
 			return _react2.default.createElement(
 				'div',
-				{ className: 'cardFlex columnOrder', onKeyPress: function onKeyPress(e) {
-						console.log(e);
-					} },
+				{ className: 'cardFlex columnOrder' },
 				_react2.default.createElement(
 					'h1',
 					{ className: 'page-title' },

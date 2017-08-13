@@ -21,19 +21,64 @@ class MainApp extends React.Component {
 			}
 			arr = [...arr, b];
 		}
-		arr[1][1] = 1;
+		// arr[1][1] = 1;
 		this.state = {
 			mapa: [...arr],
 			hero: [1,1],
 		}
+		this.handleKeyDown = this.handleKeyDown.bind(this);
+		$(document.body).on('keydown', this.handleKeyDown);
 	}
+
+	handleKeyDown(e) {
+		var player = this.state.hero;
+		var code = e.originalEvent.key;
+		console.log(code);
+		switch(code) {
+			case 'ArrowUp':
+				player[1]--;
+				this.setState({
+					hero: [player[0],player[1]],
+				});
+				break;
+			case 'ArrowDown':
+				player[1]++;
+				this.setState({
+					hero: [player[0],player[1]],
+				});
+				break;
+			case 'ArrowLeft':
+				player[0]--;
+				this.setState({
+					hero: [player[0],player[1]],
+				});
+				break;
+			case 'ArrowRight':
+				player[0]++;
+				this.setState({
+					hero: [player[0],player[1]],
+				});
+				break;
+		}
+	}
+
 	render() {
+		var player = this.state.hero;
 		var renderMapa = (arr) => {
+			var y = -1;
 			console.log('arr',arr)
 			var renderRow = (arr) => {
 				return (arr.map((e) => {
+					y++;
+					var x = -1;
 					var renderElem = (e) => {
 						return e.map((elem) => {
+							x++;
+							console.log('x:' + x + '; y:' + y);
+							if(player[0] === x && player[1] === y) {
+								elem = 1;
+								console.log('match!');
+							}
 							var color = elem === 0 ? '#292' : (elem === 1 ? '#992' : '#4ff');
 							return (
 								<div className='cardGap centerText' key={uuid()} style={{backgroundColor:color}}>
@@ -56,9 +101,7 @@ class MainApp extends React.Component {
 			)
 		}
 		return (
-			<div className='cardFlex columnOrder' onKeyPress={(e) => {
-				console.log(e);
-			}}>
+			<div className='cardFlex columnOrder'>
 				<h1 className='page-title'>SUDOKU</h1>
 				<div className='cardGap cardFlex'>
 					{renderMapa(this.state.mapa)}	
