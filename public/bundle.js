@@ -36471,6 +36471,8 @@ var _nodeUuid2 = _interopRequireDefault(_nodeUuid);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -36485,20 +36487,72 @@ var MainApp = function (_React$Component) {
 	function MainApp(props) {
 		_classCallCheck(this, MainApp);
 
-		return _possibleConstructorReturn(this, (MainApp.__proto__ || Object.getPrototypeOf(MainApp)).call(this, props));
+		var _this = _possibleConstructorReturn(this, (MainApp.__proto__ || Object.getPrototypeOf(MainApp)).call(this, props));
+
+		var arr = [];
+		for (var i = 0; i < 12; i++) {
+			var b = [];
+			for (var j = 0; j < 12; j++) {
+				if (j === 0 || j === 11 || i === 0 || i === 11) {
+					b.push(-1);
+				} else {
+					b.push(0);
+				}
+			}
+			arr = [].concat(_toConsumableArray(arr), [b]);
+		}
+		arr[1][1] = 1;
+		_this.state = {
+			mapa: [].concat(_toConsumableArray(arr)),
+			hero: [1, 1]
+		};
+		return _this;
 	}
 
 	_createClass(MainApp, [{
 		key: 'render',
 		value: function render() {
-
+			var renderMapa = function renderMapa(arr) {
+				console.log('arr', arr);
+				var renderRow = function renderRow(arr) {
+					return arr.map(function (e) {
+						var renderElem = function renderElem(e) {
+							return e.map(function (elem) {
+								var color = elem === 0 ? '#292' : elem === 1 ? '#992' : '#4ff';
+								return _react2.default.createElement(
+									'div',
+									{ className: 'cardGap centerText', key: (0, _nodeUuid2.default)(), style: { backgroundColor: color } },
+									elem
+								);
+							});
+						};
+						return _react2.default.createElement(
+							'div',
+							{ className: 'cardGap cardFlex centerFlex', key: (0, _nodeUuid2.default)() },
+							renderElem(e)
+						);
+					});
+				};
+				return _react2.default.createElement(
+					'div',
+					{ className: 'cardGap cardFlex columnOrder' },
+					renderRow(arr)
+				);
+			};
 			return _react2.default.createElement(
 				'div',
-				{ className: 'cardFlex columnOrder' },
+				{ className: 'cardFlex columnOrder', onKeyPress: function onKeyPress(e) {
+						console.log(e);
+					} },
 				_react2.default.createElement(
 					'h1',
 					{ className: 'page-title' },
 					'SUDOKU'
+				),
+				_react2.default.createElement(
+					'div',
+					{ className: 'cardGap cardFlex' },
+					renderMapa(this.state.mapa)
 				)
 			);
 		}
