@@ -36471,6 +36471,8 @@ var _nodeUuid2 = _interopRequireDefault(_nodeUuid);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -36514,33 +36516,62 @@ var MainApp = function (_React$Component) {
 	_createClass(MainApp, [{
 		key: 'handleKeyDown',
 		value: function handleKeyDown(e) {
+			var _this2 = this;
+
 			var player = this.state.hero;
+			var mapa = this.state.mapa;
 			var code = e.originalEvent.key;
-			console.log(code);
+			var x = player[1];
+			var y = player[0];
+
+			var checkDir = function checkDir(dx, dy) {
+				var one = mapa[x + dx][y + dy];
+				if (one !== -1) {
+					if (one === 2) {
+						var two = mapa[x + dx * 2][y + dy * 2];
+						if (two !== -1 && two !== 2) {
+							player[1] += dx;
+							player[0] += dy;
+							mapa[x + dx * 2][y + dy * 2] = 2;
+							mapa[x + dx][y + dy] = 0;
+						}
+					} else {
+						player[1] += dx;
+						player[0] += dy;
+					}
+				}
+
+				_this2.setState({
+					mapa: [].concat(_toConsumableArray(mapa)),
+					hero: [player[0], player[1]]
+				});
+			};
+
+			// console.log(code);
+
 			switch (code) {
 				case 'ArrowUp':
-					if (this.state.mapa[player[1] - 1][player[0]] !== -1) player[1]--;
-					this.setState({
-						hero: [player[0], player[1]]
-					});
+					var dx = -1;
+					var dy = 0;
+					checkDir(dx, dy);
 					break;
+
 				case 'ArrowDown':
-					if (this.state.mapa[player[1] + 1][player[0]] !== -1) player[1]++;
-					this.setState({
-						hero: [player[0], player[1]]
-					});
+					var dx = 1;
+					var dy = 0;
+					checkDir(dx, dy);
 					break;
+
 				case 'ArrowLeft':
-					if (this.state.mapa[player[1]][player[0] - 1] !== -1) player[0]--;
-					this.setState({
-						hero: [player[0], player[1]]
-					});
+					var dx = 0;
+					var dy = -1;
+					checkDir(dx, dy);
 					break;
+
 				case 'ArrowRight':
-					if (this.state.mapa[player[1]][player[0] + 1] !== -1) player[0]++;
-					this.setState({
-						hero: [player[0], player[1]]
-					});
+					var dx = 0;
+					var dy = 1;
+					checkDir(dx, dy);
 					break;
 			}
 		}
@@ -36550,7 +36581,7 @@ var MainApp = function (_React$Component) {
 			var player = this.state.hero;
 			var renderMapa = function renderMapa(arr) {
 				var y = -1;
-				console.log('arr', arr);
+				// console.log('arr',arr)
 				var renderRow = function renderRow(arr) {
 					return arr.map(function (e) {
 						y++;
@@ -36558,10 +36589,10 @@ var MainApp = function (_React$Component) {
 						var renderElem = function renderElem(e) {
 							return e.map(function (elem) {
 								x++;
-								console.log('x:' + x + '; y:' + y);
+								// console.log('x:' + x + '; y:' + y);
 								if (player[0] === x && player[1] === y) {
 									elem = 1;
-									console.log('match!');
+									// console.log('match!');
 								}
 								// var color = elem === 0 ? '#292' : (elem === 1 ? '#992' : '#4ff');
 								var color = '#444';

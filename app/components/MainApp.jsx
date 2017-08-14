@@ -44,32 +44,59 @@ class MainApp extends React.Component {
 
 	handleKeyDown(e) {
 		var player = this.state.hero;
+		var mapa = this.state.mapa;
 		var code = e.originalEvent.key;
-		console.log(code);
+		var x = player[1];
+		var y = player[0];
+
+		var checkDir = (dx,dy) => {
+			var one = mapa[x+dx][y+dy];
+			if(one !== -1) {
+				if(one === 2) {
+					var two = mapa[x+dx*2][y+dy*2];
+					if(two !== -1 && two !== 2) {
+						player[1] += dx;
+						player[0] += dy;
+						mapa[x+dx*2][y+dy*2] = 2;
+						mapa[x+dx][y+dy] = 0;
+					}
+				} else {
+					player[1] += dx;
+					player[0] += dy;
+				}
+			}
+
+			this.setState({
+				mapa: [...mapa],
+				hero: [player[0],player[1]],
+			});
+		}
+
+		// console.log(code);
+
 		switch(code) {
 			case 'ArrowUp':
-				if(this.state.mapa[player[1] - 1][player[0]] !== -1) player[1]--;
-				this.setState({
-					hero: [player[0],player[1]],
-				});
+				var dx = -1;
+				var dy = 0;
+				checkDir(dx,dy);
 				break;
+
 			case 'ArrowDown':
-				if(this.state.mapa[player[1]+1][player[0]] !== -1) player[1]++;
-				this.setState({
-					hero: [player[0],player[1]],
-				});
+				var dx = 1;
+				var dy = 0;
+				checkDir(dx,dy);
 				break;
+
 			case 'ArrowLeft':
-				if(this.state.mapa[player[1]][player[0]-1] !== -1) player[0]--;
-				this.setState({
-					hero: [player[0],player[1]],
-				});
+				var dx = 0;
+				var dy = -1;
+				checkDir(dx,dy);
 				break;
+
 			case 'ArrowRight':
-				if(this.state.mapa[player[1]][player[0]+1] !== -1) player[0]++;
-				this.setState({
-					hero: [player[0],player[1]],
-				});
+				var dx = 0;
+				var dy = 1;
+				checkDir(dx,dy);
 				break;
 		}
 	}
@@ -78,7 +105,7 @@ class MainApp extends React.Component {
 		var player = this.state.hero;
 		var renderMapa = (arr) => {
 			var y = -1;
-			console.log('arr',arr)
+			// console.log('arr',arr)
 			var renderRow = (arr) => {
 				return (arr.map((e) => {
 					y++;
@@ -86,10 +113,10 @@ class MainApp extends React.Component {
 					var renderElem = (e) => {
 						return e.map((elem) => {
 							x++;
-							console.log('x:' + x + '; y:' + y);
+							// console.log('x:' + x + '; y:' + y);
 							if(player[0] === x && player[1] === y) {
 								elem = 1;
-								console.log('match!');
+								// console.log('match!');
 							}
 							// var color = elem === 0 ? '#292' : (elem === 1 ? '#992' : '#4ff');
 							var color = '#444';
