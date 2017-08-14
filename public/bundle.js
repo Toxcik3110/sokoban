@@ -36487,53 +36487,13 @@ var MainApp = function (_React$Component) {
 	function MainApp(props) {
 		_classCallCheck(this, MainApp);
 
-		// var arr = [];
-		// var arr = [[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
-		// 		   [-1,-1,-1,-1,-1, 0, 0, 0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
-		// 		   [-1,-1,-1,-1,-1, 2, 0, 0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
-		// 		   [-1,-1,-1,-1,-1, 0, 0, 2,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
-		// 		   [-1,-1,-1, 0, 0, 2, 0, 2, 0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
-		// 		   [-1,-1,-1, 0,-1, 0,-1,-1, 0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
-		// 		   [-1, 0, 0, 0,-1, 0,-1,-1, 0,-1,-1,-1,-1,-1, 0, 0, 3, 3,-1],
-		// 		   [-1, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3,-1],
-		// 		   [-1,-1,-1,-1,-1, 0,-1,-1,-1, 0,-1, 0,-1,-1, 0, 0, 3, 3,-1],
-		// 		   [-1,-1,-1,-1,-1, 0, 0, 0, 0, 0,-1,-1,-1,-1,-1,-1,-1,-1,-1],
-		// 		   [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
-		// 		   ]; //real level-1
-
 		var _this = _possibleConstructorReturn(this, (MainApp.__proto__ || Object.getPrototypeOf(MainApp)).call(this, props));
 
-		var arr = [[-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1], [-1, 3, 3, 0, 0, -1, 0, 0, 0, 0, 0, -1, -1, -1], [-1, 3, 3, 0, 0, -1, 0, 2, 0, 0, 2, 0, 0, -1], [-1, 3, 3, 0, 0, -1, 2, -1, -1, -1, -1, 0, 0, -1], [-1, 3, 3, 0, 0, 0, 0, 0, 0, -1, -1, 0, 0, -1], [-1, 3, 3, 0, 0, -1, 0, -1, 0, 0, 2, 0, -1, -1], [-1, -1, -1, -1, -1, -1, 0, -1, -1, 2, 0, 2, 0, -1], [-1, -1, -1, 0, 2, 0, 0, 2, 0, 2, 0, 2, 0, -1], [-1, -1, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, -1], [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]]; //real level-2
-
-		// var arr = [[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
-		// 		   [-1,-1,-1,-1,-1, 0, 0, 0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
-		// 		   [-1,-1,-1,-1,-1, 0, 0, 0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
-		// 		   [-1,-1,-1,-1,-1, 0, 0, 0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
-		// 		   [-1,-1,-1, 0, 0, 0, 0, 0, 0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
-		// 		   [-1,-1,-1, 0,-1, 0,-1,-1, 0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
-		// 		   [-1, 0, 0, 0,-1, 0,-1,-1, 0,-1,-1,-1,-1,-1, 0, 0, 0, 0,-1],
-		// 		   [-1, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3,-1],
-		// 		   [-1,-1,-1,-1,-1, 0,-1,-1,-1, 0,-1, 0,-1,-1, 0, 0, 0, 0,-1],
-		// 		   [-1,-1,-1,-1,-1, 0, 0, 0, 0, 0,-1,-1,-1,-1,-1,-1,-1,-1,-1],
-		// 		   [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
-		// 		   ]; //fake level-1
-		// for(var i = 0; i < arr.length; i++) {
-		// 	var b = [];
-		// 	for(var j = 0; j < arr[i].length; j++) {
-		// 		if(((j === 0) || (j === arr[i].length-1))
-		// 		 || ((i === 0) || (i === 11))) {
-		// 			b.push(-1);
-		// 		} else {
-		// 			b.push(0);
-		// 		}
-		// 	}
-		// 	arr = [...arr, b];
-		// }
-		// arr[1][1] = 1;
+		var start = _this.generateLevel('1');
 		_this.state = {
-			mapa: [].concat(arr),
+			mapa: [].concat(_toConsumableArray(start.arr)),
 			// hero: [11,8], for fake and real level-1
-			hero: [7, 4]
+			hero: [].concat(_toConsumableArray(start.hero))
 		};
 		_this.handleKeyDown = _this.handleKeyDown.bind(_this);
 		$(document.body).on('keydown', _this.handleKeyDown);
@@ -36541,6 +36501,22 @@ var MainApp = function (_React$Component) {
 	}
 
 	_createClass(MainApp, [{
+		key: 'generateLevel',
+		value: function generateLevel(val) {
+			switch (val) {
+				case '1':
+					return {
+						arr: [[-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1], [-1, -1, -1, -1, -1, 0, 0, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1], [-1, -1, -1, -1, -1, 2, 0, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1], [-1, -1, -1, -1, -1, 0, 0, 2, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1], [-1, -1, -1, 0, 0, 2, 0, 2, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1], [-1, -1, -1, 0, -1, 0, -1, -1, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1], [-1, 0, 0, 0, -1, 0, -1, -1, 0, -1, -1, -1, -1, -1, 0, 0, 3, 3, -1], [-1, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, -1], [-1, -1, -1, -1, -1, 0, -1, -1, -1, 0, -1, 0, -1, -1, 0, 0, 3, 3, -1], [-1, -1, -1, -1, -1, 0, 0, 0, 0, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1], [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]],
+						hero: [11, 8]
+					};
+				case '2':
+					return {
+						arr: [[-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1], [-1, 3, 3, 0, 0, -1, 0, 0, 0, 0, 0, -1, -1, -1], [-1, 3, 3, 0, 0, -1, 0, 2, 0, 0, 2, 0, 0, -1], [-1, 3, 3, 0, 0, -1, 2, -1, -1, -1, -1, 0, 0, -1], [-1, 3, 3, 0, 0, 0, 0, 0, 0, -1, -1, 0, 0, -1], [-1, 3, 3, 0, 0, -1, 0, -1, 0, 0, 2, 0, -1, -1], [-1, -1, -1, -1, -1, -1, 0, -1, -1, 2, 0, 2, 0, -1], [-1, -1, -1, 0, 2, 0, 0, 2, 0, 2, 0, 2, 0, -1], [-1, -1, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, -1], [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]],
+						hero: [7, 4]
+					};
+			}
+		}
+	}, {
 		key: 'handleKeyDown',
 		value: function handleKeyDown(e) {
 			var _this2 = this;
@@ -36605,6 +36581,8 @@ var MainApp = function (_React$Component) {
 	}, {
 		key: 'render',
 		value: function render() {
+			var _this3 = this;
+
 			var player = this.state.hero;
 			var count = 0;
 			// var checkWin = () => {
@@ -36672,7 +36650,7 @@ var MainApp = function (_React$Component) {
 			};
 			return _react2.default.createElement(
 				'div',
-				{ className: 'cardFlex columnOrder' },
+				{ className: 'cardFlex columnOrder justifyAround' },
 				_react2.default.createElement(
 					'h1',
 					{ className: 'page-title' },
@@ -36684,10 +36662,44 @@ var MainApp = function (_React$Component) {
 					_react2.default.createElement('div', { className: 'cardGap' }),
 					_react2.default.createElement(
 						'div',
-						{ className: 'cardGap2 cardFlex' },
+						{ className: 'cardGap3 cardFlex' },
 						renderMapa(this.state.mapa)
 					),
 					_react2.default.createElement('div', { className: 'cardGap' })
+				),
+				_react2.default.createElement(
+					'div',
+					{ className: 'cardGap' },
+					'\xA0'
+				),
+				_react2.default.createElement(
+					'div',
+					{ className: 'cardGap' },
+					_react2.default.createElement(
+						'select',
+						{ onChange: function onChange(e) {
+								var level = _this3.generateLevel(e.target.value);
+								_this3.setState({
+									mapa: [].concat(_toConsumableArray(level.arr)),
+									hero: [].concat(_toConsumableArray(level.hero))
+								});
+							} },
+						_react2.default.createElement(
+							'option',
+							{ disabled: true, selected: true },
+							'Select level'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: '1' },
+							'Level 1'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: '2' },
+							'Level 2'
+						)
+					)
 				)
 			);
 		}
