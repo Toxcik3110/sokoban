@@ -36527,13 +36527,13 @@ var MainApp = function (_React$Component) {
 			var checkDir = function checkDir(dx, dy) {
 				var one = mapa[x + dx][y + dy];
 				if (one !== -1) {
-					if (one === 2) {
+					if (one === 2 || one === 5) {
 						var two = mapa[x + dx * 2][y + dy * 2];
-						if (two !== -1 && two !== 2) {
+						if (two !== -1 && two !== 2 && two !== 5) {
 							player[1] += dx;
 							player[0] += dy;
-							mapa[x + dx * 2][y + dy * 2] = 2;
-							mapa[x + dx][y + dy] = 0;
+							mapa[x + dx * 2][y + dy * 2] += 2;
+							mapa[x + dx][y + dy] -= 2;
 						}
 					} else {
 						player[1] += dx;
@@ -36605,8 +36605,9 @@ var MainApp = function (_React$Component) {
 										color = '#dd2';break;
 									case 3:
 										color = '#ddd';break;
-									case 4:
+									case 5:
 										color = '#2d2';break;
+									// case 4:	color = '#2d2';	break;
 
 								}
 								return _react2.default.createElement(
