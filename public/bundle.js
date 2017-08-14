@@ -36471,8 +36471,6 @@ var _nodeUuid2 = _interopRequireDefault(_nodeUuid);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -36487,24 +36485,26 @@ var MainApp = function (_React$Component) {
 	function MainApp(props) {
 		_classCallCheck(this, MainApp);
 
+		// var arr = [];
 		var _this = _possibleConstructorReturn(this, (MainApp.__proto__ || Object.getPrototypeOf(MainApp)).call(this, props));
 
-		var arr = [];
-		for (var i = 0; i < 12; i++) {
-			var b = [];
-			for (var j = 0; j < 12; j++) {
-				if (j === 0 || j === 11 || i === 0 || i === 11) {
-					b.push(-1);
-				} else {
-					b.push(0);
-				}
-			}
-			arr = [].concat(_toConsumableArray(arr), [b]);
-		}
+		var arr = [[-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1], [-1, -1, -1, -1, -1, 0, 0, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1], [-1, -1, -1, -1, -1, 2, 0, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1], [-1, -1, -1, -1, -1, 0, 0, 2, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1], [-1, -1, -1, 0, 0, 2, 0, 2, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1], [-1, -1, -1, 0, -1, 0, -1, -1, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1], [-1, 0, 0, 0, -1, 0, -1, -1, 0, -1, -1, -1, -1, -1, 0, 0, 3, 3, -1], [-1, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, -1], [-1, -1, -1, -1, -1, 0, -1, -1, -1, 0, -1, 0, -1, -1, 0, 0, 3, 3, -1], [-1, -1, -1, -1, -1, 0, 0, 0, 0, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1], [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]];
+		// for(var i = 0; i < arr.length; i++) {
+		// 	var b = [];
+		// 	for(var j = 0; j < arr[i].length; j++) {
+		// 		if(((j === 0) || (j === arr[i].length-1))
+		// 		 || ((i === 0) || (i === 11))) {
+		// 			b.push(-1);
+		// 		} else {
+		// 			b.push(0);
+		// 		}
+		// 	}
+		// 	arr = [...arr, b];
+		// }
 		// arr[1][1] = 1;
 		_this.state = {
-			mapa: [].concat(_toConsumableArray(arr)),
-			hero: [1, 1]
+			mapa: [].concat(arr),
+			hero: [11, 8]
 		};
 		_this.handleKeyDown = _this.handleKeyDown.bind(_this);
 		$(document.body).on('keydown', _this.handleKeyDown);
@@ -36563,11 +36563,25 @@ var MainApp = function (_React$Component) {
 									elem = 1;
 									console.log('match!');
 								}
-								var color = elem === 0 ? '#292' : elem === 1 ? '#992' : '#4ff';
+								// var color = elem === 0 ? '#292' : (elem === 1 ? '#992' : '#4ff');
+								var color = '#444';
+								switch (elem) {
+									case 0:
+										color = '#aaa';break;
+									case 1:
+										color = '#d22';break;
+									case 2:
+										color = '#dd2';break;
+									case 3:
+										color = '#ddd';break;
+									case 4:
+										color = '#2d2';break;
+
+								}
 								return _react2.default.createElement(
 									'div',
 									{ className: 'cardGap centerText', key: (0, _nodeUuid2.default)(), style: { backgroundColor: color } },
-									elem
+									'\xA0'
 								);
 							});
 						};

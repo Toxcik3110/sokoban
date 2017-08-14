@@ -8,23 +8,35 @@ class MainApp extends React.Component {
 
 	constructor(props) {
 		super(props);
-		var arr = [];
-		for(var i = 0; i < 12; i++) {
-			var b = [];
-			for(var j = 0; j < 12; j++) {
-				if(((j === 0) || (j === 11))
-				 || ((i === 0) || (i === 11))) {
-					b.push(-1);
-				} else {
-					b.push(0);
-				}
-			}
-			arr = [...arr, b];
-		}
+		// var arr = [];
+		var arr = [[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+				   [-1,-1,-1,-1,-1, 0, 0, 0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+				   [-1,-1,-1,-1,-1, 2, 0, 0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+				   [-1,-1,-1,-1,-1, 0, 0, 2,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+				   [-1,-1,-1, 0, 0, 2, 0, 2, 0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+				   [-1,-1,-1, 0,-1, 0,-1,-1, 0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+				   [-1, 0, 0, 0,-1, 0,-1,-1, 0,-1,-1,-1,-1,-1, 0, 0, 3, 3,-1],
+				   [-1, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3,-1],
+				   [-1,-1,-1,-1,-1, 0,-1,-1,-1, 0,-1, 0,-1,-1, 0, 0, 3, 3,-1],
+				   [-1,-1,-1,-1,-1, 0, 0, 0, 0, 0,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+				   [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+				   ];
+		// for(var i = 0; i < arr.length; i++) {
+		// 	var b = [];
+		// 	for(var j = 0; j < arr[i].length; j++) {
+		// 		if(((j === 0) || (j === arr[i].length-1))
+		// 		 || ((i === 0) || (i === 11))) {
+		// 			b.push(-1);
+		// 		} else {
+		// 			b.push(0);
+		// 		}
+		// 	}
+		// 	arr = [...arr, b];
+		// }
 		// arr[1][1] = 1;
 		this.state = {
 			mapa: [...arr],
-			hero: [1,1],
+			hero: [11,8],
 		}
 		this.handleKeyDown = this.handleKeyDown.bind(this);
 		$(document.body).on('keydown', this.handleKeyDown);
@@ -79,10 +91,19 @@ class MainApp extends React.Component {
 								elem = 1;
 								console.log('match!');
 							}
-							var color = elem === 0 ? '#292' : (elem === 1 ? '#992' : '#4ff');
+							// var color = elem === 0 ? '#292' : (elem === 1 ? '#992' : '#4ff');
+							var color = '#444';
+							switch(elem) {
+								case 0:	color = '#aaa';	break;
+								case 1:	color = '#d22';	break;
+								case 2:	color = '#dd2';	break;
+								case 3:	color = '#ddd';	break;
+								case 4:	color = '#2d2';	break;
+
+							}
 							return (
 								<div className='cardGap centerText' key={uuid()} style={{backgroundColor:color}}>
-									{elem}
+									 
 								</div>
 							)
 						})
